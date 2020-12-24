@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-12-24T03:24:38Z</date>
+    <groups>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template App lm_sensors</template>
+            <name>Template App lm_sensors</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>temperature</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>lm_sensors</name>
+                    <key>lm_sensors.discovery</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#CHIPNAME}/{#UNITNAME}: Temperature</name>
+                            <key>lm_sensors[{#CHIPNAME},{#UNITNAME},{#VALNAME}]</key>
+                            <delay>5m</delay>
+                            <units>C</units>
+                            <applications>
+                                <application>
+                                    <name>temperature</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Temperature of {#CHIPNAME}/{#UNITNAME}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template App lm_sensors</host>
+                                        <key>lm_sensors[{#CHIPNAME},{#UNITNAME},{#VALNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
