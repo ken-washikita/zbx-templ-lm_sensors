@@ -21,12 +21,12 @@ if ($#ARGV != 2) {
 
 my $chip = shift;
 my $unit = shift;
-my $subunit = shift;
+my $sub = shift;
 
 my $s = `sensors -j $chip`;
 $s =~ s/\n//g;
 my $j = decode_json($s);
-print $j->{$chip}->{$unit}->{"${subunit}_input"}, "\n";
+print $j->{$chip}->{$unit}->{$sub}, "\n";
 
 exit 0;
 
