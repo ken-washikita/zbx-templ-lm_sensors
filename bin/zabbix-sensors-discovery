@@ -17,7 +17,7 @@ foreach my $chip (keys %$j) {
 				if ($val =~ m/_input$/) {
 					print ",\n" if ($f);
 					$f = 1;
-					printf("{\"{#CHIPNAME\"}:\"%s\",\"{#UNITNAME\}:\"%s\",\{#VALNAME\}:\"%s\"}", $chip, $unit, $val);
+					printf("{\"{#CHIPNAME}\":\"%s\",\"{#UNITNAME}\":\"%s\",\"{#VALNAME}\":\"%s\"}", $chip, $unit, $val);
 				}
 			}
 		}
