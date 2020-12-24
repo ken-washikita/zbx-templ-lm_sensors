@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use JSON;
+use Getopt::Std;
+
+my %o = ();
+getopts("h", \%o);
+
+if (exists $o{h}) {
+	usage();
+	exit 0;
+}
+
+if ($#ARGV != 2) {
+	print STDERR "illegal args\n";
+	usage();
+	exit 1;
+}
+
+my $chip = shift;
+my $unit = shift;
+my $subunit = shift;
+
+my $s = `sensors -j $chip`;
+$s =~ s/\n//g;
+my $j = decode_json($s);
+print $j->{$chip}->{$unit}->{"${subunit}_input"}, "\n";
+
+exit 0;
+
+###
+
+sub usage
+{
+	print <<EOL;
+usage: zabbix-sensors chip unit subunit
+EOL
+}
