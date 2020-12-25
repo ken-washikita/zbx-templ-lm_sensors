@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use JSON;
 
+system 'sensors-detect --auto >/dev/null 2>&1';
 my $s = `sensors -j 2>/dev/null`;
 $s =~ s/\n//g;
 my $j = decode_json($s);
@@ -11,9 +12,9 @@ my $j = decode_json($s);
 my $f = 0;
 print "[\n";
 foreach my $chip (keys %$j) {
-	foreach my $unit (keys %{$j->{$chip}}) {
+	foreach my $unit (sort keys %{$j->{$chip}}) {
 		if (ref($j->{$chip}->{$unit}) eq "HASH") {
-			foreach my $val (keys %{$j->{$chip}->{$unit}}) {
+			foreach my $val (sort keys %{$j->{$chip}->{$unit}}) {
 				if ($val =~ m/_input$/) {
 					print ",\n" if ($f);
 					$f = 1;
